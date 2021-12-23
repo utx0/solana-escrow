@@ -1,8 +1,14 @@
+pub mod entrypoint;
+pub mod error;
+pub mod instruction;
+pub mod processor;
+pub mod state;
+
 use solana_program::{
-    account_info::AccountInfo, entrypoint, entrypoint::ProgramResult, msg, pubkey::Pubkey,
+    account_info::AccountInfo, entrypoint::ProgramResult, msg, pubkey::Pubkey,
 };
 
-entrypoint!(process_instruction);
+solana_program::entrypoint!(process_instruction);
 fn process_instruction(
     program_id: &Pubkey,
     accounts: &[AccountInfo],
@@ -32,7 +38,7 @@ mod test {
         let program_id = Pubkey::new_unique();
 
         let (mut banks_client, payer, recent_blockhash) = ProgramTest::new(
-            "bpf_program_template",
+            "solana_escrow",
             program_id,
             processor!(process_instruction),
         )
